@@ -4,6 +4,12 @@ $('#submit-btn').on('click', function(){
 	callNutritionixNaturalLanguage(userInput);
 });
 
+$('#exercise-submit-btn').on('click', function(){
+    var userInput = $('#exercise-user-input').val().trim();
+
+    callNutritionixExercise(userInput);
+});
+
 function callNutritionixInstantSearch() {
 	var apiKey = 'a6ad2fabb4d3a05e6dbd5453734d01d8';
 	var appId = '4ca70c03'
@@ -72,6 +78,67 @@ function callNutritionixNaturalLanguage(userInput) {
     	td.text(response.foods[0].nf_calories);
     	tr.append(td);
 
-    	$('#result-rows').append(tr);
+    	$('#food-result-rows').append(tr);
     });
+}
+
+function callNutritionixExercise(userInput) {
+    // Sample Input
+    // {
+    //  "query":"ran 3 miles",
+    //  "gender":"female",
+    //  "weight_kg":72.5,
+    //  "height_cm":167.64,
+    //  "age":30
+    // }
+
+    var apiKey = 'a6ad2fabb4d3a05e6dbd5453734d01d8';
+    var appId = '4ca70c03'
+
+    var queryURL = 'https://trackapi.nutritionix.com/v2/natural/exercise';
+
+    $.ajax({
+        url: queryURL,
+        headers: {'x-app-id': appId, 'x-app-key': apiKey},
+        method: "POST",
+        data: {query: userInput,
+          
+            },
+    }).done(function(response) {
+        console.log(response);
+
+        // New row
+        var tr = $('<tr></tr>');
+
+        var td = $('<td></td>');
+        
+        var imageUrl = response.exercises[0].photo.thumb;
+        console.log(imageUrl);
+
+        var img = $('<img/>');
+        img.attr('src', imageUrl);
+        img.attr('alt', 'exercise image');
+
+        td.append(img);
+        tr.append(td);
+
+        td = $('<td></td>');
+        td.text(response.exercises[0].name);
+        tr.append(td);
+
+        td = $('<td></td>');
+        td.text(response.exercises[0].met);
+        tr.append(td);
+
+        td = $('<td></td>');
+        td.text(response.exercises[0].duration_min);
+        tr.append(td);
+
+        td = $('<td></td>');
+        td.text(response.exercises[0].nf_calories);
+        tr.append(td);
+
+        $('#exercise-result-rows').append(tr);
+
+    });    
 }

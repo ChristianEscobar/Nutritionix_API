@@ -7,22 +7,22 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 	<style>
-		#results-tbl {
+		.results-tbl {
     		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     		border-collapse: collapse;
     		width: 80%;
 		}
 
-		#results-tbl td, #results-tbl th {
+		.results-tbl td, .results-tbl th {
     		border: 1px solid #ddd;
     		padding: 8px;
 		}
 
-		#results-tbl tr:nth-child(even){background-color: #f2f2f2;}
+		.results-tbl tr:nth-child(even){background-color: #f2f2f2;}
 
-		#results-tbl tr:hover {background-color: #ddd;}
+		.results-tbl tr:hover {background-color: #ddd;}
 
-		#results-tbl th {
+		.results-tbl th {
     		padding-top: 12px;
     		padding-bottom: 12px;
     		text-align: left;
@@ -32,6 +32,7 @@
 	</style>
 </head>
 <body>
+	<span>Food</span>
 	<form>
 		<input id="user-input" type="text">
 		<br>
@@ -39,11 +40,11 @@
 		<input id="submit-btn" type="button" value="Submit">
 	</form>
 
-	<div id='results'>
+	<div id="results">
 		<br>
 		<br>
 
-		<table id="results-tbl">
+		<table id="food-results-tbl" class="results-tbl">
 			<thead>
 				<tr>
 					<th></th>
@@ -53,7 +54,36 @@
 					<th>Calories</th>
 				</tr>
 			</thead>
-			<tbody id="result-rows"></tbody>
+			<tbody id="food-result-rows"></tbody>
+		</table>
+	</div>
+
+	<br>
+	<span>Exercise</span>
+	<form>
+		<input id="exercise-user-input" type="text">
+		<br>
+		<span>*Note:  API can also accept gender, weight, height and age</span>
+		<br>
+		<br>
+		<input id="exercise-submit-btn" type="button" value="Submit">
+	</form>
+
+	<div id="exercise-results">
+		<br>
+		<br>
+
+		<table id="exercise-results-tbl" class="results-tbl">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Exercise Name</th>
+					<th>MET (Metabolic Equivalent)</th>
+					<th>Duration</th>
+					<th>Calories Expended</th>
+				</tr>
+			</thead>
+			<tbody id="exercise-result-rows"></tbody>
 		</table>
 	</div>
 
