@@ -41,44 +41,50 @@ function callNutritionixNaturalLanguage(userInput) {
         url: queryURL,
         headers: {'x-app-id': appId, 'x-app-key': apiKey},
         method: "POST",
-        data: {query: userInput,
-        	timezone: 'US/Pacific',
-        	},
+        data: {
+            query: userInput,
+            timezone: 'US/Pacific',
+        },
     }).done(function(response) {
-    	console.log(response.foods[0]);
+    	console.log(response);
 
-    	// New row
-    	var tr = $('<tr></tr>');
+        for(var i=0; i< response.foods.length; i++) {
+            var food = response.foods[i];
+            // New row
+            var tr = $('<tr></tr>');
 
-    	var td = $('<td></td>');
+            var td = $('<td></td>');
+            
+            var imageUrl = food.photo.thumb;
+            console.log(imageUrl);
+
+            var img = $('<img/>');
+            img.attr('src', imageUrl);
+            img.attr('alt', 'food image');
+
+            td.append(img);
+            tr.append(td);
+
+            td = $('<td></td>');
+            td.text(food.serving_qty);
+            tr.append(td);
+
+            td = $('<td></td>');
+            td.text(food.serving_unit);
+            tr.append(td);
+
+            td = $('<td></td>');
+            td.text(food.food_name);
+            tr.append(td);
+
+            td = $('<td></td>');
+            td.text(food.nf_calories);
+            tr.append(td);
+
+            $('#food-result-rows').append(tr);
+        }
+
     	
-    	var imageUrl = response.foods[0].photo.thumb;
-    	console.log(imageUrl);
-
-    	var img = $('<img/>');
-    	img.attr('src', imageUrl);
-    	img.attr('alt', 'food image');
-
-    	td.append(img);
-    	tr.append(td);
-
-    	td = $('<td></td>');
-    	td.text(response.foods[0].serving_qty);
-    	tr.append(td);
-
-    	td = $('<td></td>');
-    	td.text(response.foods[0].serving_unit);
-    	tr.append(td);
-
-    	td = $('<td></td>');
-    	td.text(response.foods[0].food_name);
-    	tr.append(td);
-
-    	td = $('<td></td>');
-    	td.text(response.foods[0].nf_calories);
-    	tr.append(td);
-
-    	$('#food-result-rows').append(tr);
     });
 }
 
@@ -101,9 +107,9 @@ function callNutritionixExercise(userInput) {
         url: queryURL,
         headers: {'x-app-id': appId, 'x-app-key': apiKey},
         method: "POST",
-        data: {query: userInput,
-          
-            },
+        data: {
+            query: userInput,
+        },
     }).done(function(response) {
         console.log(response);
 
